@@ -35,9 +35,13 @@ const TimrTableView = () => {
       }
     })
   }
-  const notifications =  Notifications.getAllScheduledNotificationsAsync();
 
-
+  const getPushDateUnitList = async () => {
+    const notifications = await Notifications.getAllScheduledNotificationsAsync();
+    const identifier = notifications[0].identifier; 
+    console.log(notifications)
+  }
+  getPushDateUnitList()
 
   const requestPermissionsAsync = async () => {
     const { granted } = await Notifications.getPermissionsAsync();
@@ -139,12 +143,12 @@ const TimrTableView = () => {
             <WeekFram weekDay={"Thu"}></WeekFram>
             <WeekFram weekDay={"Fri"}></WeekFram>
           </View>
-          <View style={styles.timeTableClass}>
-            {weekTime.map((weekTime1,index)=><View key={index} style={styles.rowClass}>{ weekTime1.map((weekTime2,index)=><ClassFrame key={index} TimeTableDate={weekTime2} day={weekTime2.day} period={weekTime2.period} className={weekTime2.className} onEventCallBack={(frameDetail)=>{setIsShow(true);setPushedClassFrameDetail(frameDetail)}}/>) }</View>)}
+            <View style={styles.timeTableClass}>
+              {weekTime.map((weekTime1,index)=><View key={index} style={styles.rowClass}>{ weekTime1.map((weekTime2,index)=><ClassFrame key={index} TimeTableDate={weekTime2} day={weekTime2.day} period={weekTime2.period} className={weekTime2.className} onEventCallBack={(frameDetail)=>{setIsShow(true);setPushedClassFrameDetail(frameDetail)}}/>) }</View>)}
+            </View>
           </View>
         </View>
       </View>
-    </View>
     </View>
   );
 };
