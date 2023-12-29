@@ -79,7 +79,6 @@ const TimeTableInfo = (props) => {
     memo:props.pushFramDetail.memo,
     notification:props.pushFramDetail.notification,
   })
-  console.log(infoDetail);
   return (
     <View style={styles.infoDaialog}>
         <View style={styles.InfoText}>
