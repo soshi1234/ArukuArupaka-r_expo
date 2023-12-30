@@ -31,8 +31,10 @@ const TimrTableView = () => {
         title: classDetail.classRoom+" "+classDetail.className
       },
       trigger: {
+        weekday: classDetail.day+2,
+        hour: classStartEndTimeUnitList[classDetail.period].pushHour,
+        minute: classStartEndTimeUnitList[classDetail.period].pushMinitu,
         repeats: true,
-        seconds: 6,
       }
     })
   }
