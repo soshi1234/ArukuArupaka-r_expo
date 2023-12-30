@@ -3,6 +3,7 @@ import {Text, View,StyleSheet,TouchableOpacity,TextInput} from 'react-native';
 import {useState} from 'react'
 
 
+
 const styles=StyleSheet.create({
   infoDaialog:{
     alignItems:'center',
@@ -12,11 +13,11 @@ const styles=StyleSheet.create({
     width:"80%",
     //backgroundColor:'F8F8F8',
     backgroundColor:'#F8F8F8',
-    height:200,
+    height:210,
     left:0,
     borderRadius:4,
     flexDirection:'column',
-    paddingTop:2,
+    paddingTop:4,
   },
   determinationButton:{
     alignItems:'center',
@@ -44,7 +45,7 @@ const styles=StyleSheet.create({
     textAlign:'center',
     //alignItems:'center',
     //backgroundColor:'blue',
-    fontSize:18,
+    fontSize:14,
   },
   TextInputInfo:{ 
     width: 80,
@@ -61,12 +62,12 @@ const styles=StyleSheet.create({
     color:'red,'
   },
   backText:{
-    width:80,
+    //width:'110%',
     //textAlign:'center',
     //alignItems:'center',
     //backgroundColor:'blue',
-    fontSize:18,
-    width:100,
+    fontSize:14,
+    width:110,
   }
 })
 
@@ -77,9 +78,8 @@ const TimeTableInfo = (props) => {
     classRoom:props.pushFramDetail.classRoom,
     className:props.pushFramDetail.className,
     memo:props.pushFramDetail.memo,
-    notification:props.pushFramDetail.notification,
+    notification:10,
   })
-  console.log(infoDetail);
   return (
     <View style={styles.infoDaialog}>
         <View style={styles.InfoText}>
@@ -105,10 +105,10 @@ const TimeTableInfo = (props) => {
 
         <View style={styles.InfoText}>
           <Text style={styles.InfoTextTest}>通知時間</Text>
-          <TextInput style={styles.TextInputInfo} onChangeText={(text) =>{setInfoDetail((prev)=>{prev.notification=text; return prev});}}>
+          <TextInput  editable={false} style={styles.TextInputInfo} onChangeText={(text) =>{setInfoDetail((prev)=>{prev.notification=text; return prev});}}>
             <Text>{infoDetail.notification}</Text>
           </TextInput>
-          <Text style={styles.backText}>  に通知する</Text>
+          <Text style={styles.backText}> 分前に通知する</Text>
         </View >
         <View style={{flexDirection:'row',flex:1,}}>
           <TouchableOpacity style={[styles.determinationButton,{backgroundColor:'#D9D9D9'}]} onPress={()=>{props.onEventCallBack();props.onSudmit(infoDetail)}}><Text style={{color:'#595959',fontSize:18,}}>OK</Text></TouchableOpacity>

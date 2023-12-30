@@ -24,24 +24,22 @@ const TimrTableView = () => {
     }),
   });
 
-  const scheduleNotificationAsync = async () => {
+  const scheduleNotificationAsync = async (classDetail) => {
     await Notifications.scheduleNotificationAsync({
       content: {
-        body: 'testtime'
+        body:classDetail.memo,
+        title: classDetail.classRoom+" "+classDetail.className
       },
       trigger: {
+        weekday: classDetail.day+2,
+        hour: classStartEndTimeUnitList[classDetail.period].pushHour,
+        minute: classStartEndTimeUnitList[classDetail.period].pushMinitu,
         repeats: true,
-        seconds: 6,
       }
     })
   }
 
-  const getPushDateUnitList = async () => {
-    const notifications = await Notifications.getAllScheduledNotificationsAsync();
-    const identifier = notifications[0].identifier; 
-    console.log(notifications)
-  }
-  getPushDateUnitList()
+
 
   const requestPermissionsAsync = async () => {
     const { granted } = await Notifications.getPermissionsAsync();
@@ -64,22 +62,32 @@ const TimrTableView = () => {
     {
       start:"9:00",
       end:"10:30",
+      pushHour:8,
+      pushMinitu:50,
     },
     {
       start:"10:40",
       end:"12:10",
+      pushHour:10,
+      pushMinitu:30,      
     },
     {
       start:"13:00",
       end:"14:30",
+      pushHour:12,
+      pushMinitu:50,
     },
     {
       start:"14:40",
       end:"16:10",
+      pushHour:14,
+      pushMinitu:30,
     },
     {
       start:"16:20",
       end:"17:50",
+      pushHour:16,
+      pushMinitu:10,
     },
   ]
   const [weekTime,setWeekTime]=useState(weekTimeSaveData);
@@ -98,7 +106,6 @@ const TimrTableView = () => {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('timeTableKey');
-      console.log( JSON.stringify((JSON.parse(jsonValue))));
       jsonValue != null ? setWeekTime((JSON.parse(jsonValue))) : null;
     } catch (e) {
       console.log(e)
@@ -120,7 +127,7 @@ const TimrTableView = () => {
 
   const onSubmit=(classDetail)=>{
     setWeekTime((prev)=>{prev[classDetail.day][classDetail.period]=classDetail; return prev});
-    scheduleNotificationAsync();
+    scheduleNotificationAsync(classDetail);
     
   }
  
